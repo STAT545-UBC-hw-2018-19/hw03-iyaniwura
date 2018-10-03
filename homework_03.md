@@ -12,10 +12,8 @@ September 27, 2018
         -   [Look at the spread of GDP per capita within the coninents](#look-at-the-spread-of-gdp-per-capita-within-the-coninents)
         -   [Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population.](#compute-a-trimmed-mean-of-life-expectancy-for-different-years.-or-a-weighted-mean-weighting-by-population.)
         -   [How is life expectancy changing over time in different continent?](#how-is-life-expectancy-changing-over-time-in-different-continent)
-        -   [How is average life expectancy changing over time in different continent?](#how-is-average-life-expectancy-changing-over-time-in-different-continent)
         -   [Report the absolute and/or relative abundance of countries with low life expectancy over time by continent.](#report-the-absolute-andor-relative-abundance-of-countries-with-low-life-expectancy-over-time-by-continent.)
         -   [I want to do more!](#i-want-to-do-more)
-        -   [Placing a table and a figure side-by-side.](#placing-a-table-and-a-figure-side-by-side.)
 
 **Homework 03: USe dplyr/ggplot2 to manipulate and explore data**
 =================================================================
@@ -241,7 +239,7 @@ This graph shows a summary of the 'distribution' of GDP per capital for each con
 
 ### Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population.
 
-#### Trimmed Mean
+-   **Trimmed Mean**
 
 ``` r
 # Tmean: Trimmed mean
@@ -285,7 +283,7 @@ Tmean %>%
 
 We notice from this plot that the trimmed mean of life expectancy is less than the regular mean for 1952, 1957, and 1962. In the year 1967, the two means are very close to each other, the difference of the means is 0.0383. From 1972 onward, the trimmed mean is greater than the regular mean.
 
-#### Weighted Mean: Life Expectancy weighted by population
+-   **Weighted Mean: Life Expectancy weighted by population**
 
 ``` r
 W_mean <-gapminder %>%  # loads gapminder data and pipe it into the next line
@@ -329,6 +327,8 @@ W_mean %>%  # loads pipes W_mean into the next line
 In 1952 the mean life expectancy weighted over the population is almost the same as the regular mean, although, the regular mean is higher. In the following year (1957), this changes and the regular mean becomes lower. In 1962, the trend also changes such that the regular mean is higher that the weighted mean. This relationship continues until 1967, where the regular mean is lower than the weighted mean. This trend continues for the remaining years.
 
 ### How is life expectancy changing over time in different continent?
+
+-   **How is median life expectancy changing over time in different continent?**
 
 Let us begin by checking how the median life expectancy changes over time for each continent.
 
@@ -431,7 +431,7 @@ LvsY %>%
 
 ![](homework_03_files/figure-markdown_github/unnamed-chunk-12-2.png)
 
-### How is average life expectancy changing over time in different continent?
+-   **How is average life expectancy changing over time in different continent?**
 
 ``` r
 # LvsY: life exp. ves year
@@ -616,7 +616,7 @@ LwLifExp  %>%
 
 ### I want to do more!
 
-### Placing a table and a figure side-by-side.
+-   **Placing a table and a figure side-by-side.**
 
 ``` r
 suppressPackageStartupMessages(library(gridExtra)) # loads the gridExtra library

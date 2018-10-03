@@ -166,7 +166,7 @@ This graph shows a summary of the 'distribution' of GDP per capital for each con
 
 ### Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population.
 
-#### Trimmed Mean
+* **Trimmed Mean**
 
 ```{r}
 # Tmean: Trimmed mean
@@ -194,7 +194,7 @@ Tmean %>%
 We notice from this plot that the trimmed mean of life expectancy is less than the regular mean for 1952, 1957, and 1962. In the year 1967, the two means are very close to each other, the difference of the means is 0.0383. From 1972 onward, the trimmed mean is greater than the regular mean.
 
 
-#### Weighted Mean: Life Expectancy weighted by population
+* **Weighted Mean: Life Expectancy weighted by population**
 
 
 ```{r}
@@ -225,6 +225,8 @@ In 1952 the mean life expectancy weighted over the population is almost the same
 
 ### How is life expectancy changing over time in different continent?
 
+* **How is median life expectancy changing over time in different continent?**
+
 Let us begin by checking how the median life expectancy changes over time for each continent.
 
 ```{r}
@@ -253,7 +255,7 @@ LvsY %>%
   ggtitle("Median life expectancy over time for each continent ") # adds title
 ```
 
-### How is average life expectancy changing over time in different continent?
+ * **How is average life expectancy changing over time in different continent?**
 
 
 ```{r}
@@ -320,7 +322,7 @@ LwLifExp  %>%
 
 ### I want to do more!
 
-### Placing a table and a figure side-by-side.
+ * **Placing a table and a figure side-by-side.**
 
 ```{r}
 suppressPackageStartupMessages(library(gridExtra)) # loads the gridExtra library

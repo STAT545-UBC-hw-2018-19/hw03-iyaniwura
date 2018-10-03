@@ -652,7 +652,7 @@ MinMAxPlot <- MinMax %>%   # loads the MinMax data
 
 
 Table2 <- tableGrob(MinMax, theme=ttheme_minimal(),rows=NULL)  # Creates a gtable
-grid.arrange(Table2,MinMAxPlot, nrow=1)   # puts the table and the plot side-by-side
+grid.arrange(MinMAxPlot,Table2, nrow=1)   # puts the table and the plot side-by-side
 ```
 
 ![](homework_03_files/figure-markdown_github/unnamed-chunk-16-1.png)

@@ -164,7 +164,7 @@ gapminder %>%   # loads the gapminder data
 This graph shows a summary of the 'distribution' of GDP per capital for each continent. I have also plotted the gdpPercap values on the violin plot, which shows how the actual gdp is distributed for each continent.
 
 
-### Compute a trimmed mean of life expectancy for different years.
+### Compute a trimmed mean of life expectancy for different years
 
 
   **Trimmed Mean**

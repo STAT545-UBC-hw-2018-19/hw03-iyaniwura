@@ -9,9 +9,9 @@ September 27, 2018
     -   [Task menu](#task-menu)
         -   [Get the minimum and maximum of GDP per capital for all continents](#get-the-minimum-and-maximum-of-gdp-per-capital-for-all-continents)
         -   [Look at the spread of GDP per capita within the coninents](#look-at-the-spread-of-gdp-per-capita-within-the-coninents)
-        -   [Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population.](#compute-a-trimmed-mean-of-life-expectancy-for-different-years.-or-a-weighted-mean-weighting-by-population.)
+        -   [Compute a trimmed mean of life expectancy for different years.](#compute-a-trimmed-mean-of-life-expectancy-for-different-years.)
         -   [How is life expectancy changing over time in different continent?](#how-is-life-expectancy-changing-over-time-in-different-continent)
-        -   [Report the absolute and/or relative abundance of countries with low life expectancy over time by continent.](#report-the-absolute-andor-relative-abundance-of-countries-with-low-life-expectancy-over-time-by-continent.)
+        -   [Report the absolute and\_or relative abundance of countries with low life expectancy over time by continent.](#report-the-absolute-and_or-relative-abundance-of-countries-with-low-life-expectancy-over-time-by-continent.)
         -   [I want to do more!](#i-want-to-do-more)
 
 **Homework 03: USe dplyr/ggplot2 to manipulate and explore data**
@@ -236,7 +236,7 @@ gapminder %>%   # loads the gapminder data
 
 This graph shows a summary of the 'distribution' of GDP per capital for each continent. I have also plotted the gdpPercap values on the violin plot, which shows how the actual gdp is distributed for each continent.
 
-### Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population.
+### Compute a trimmed mean of life expectancy for different years.
 
 -   **Trimmed Mean**
 
@@ -531,7 +531,7 @@ LvsY %>%
 
 ![](homework_03_files/figure-markdown_github/unnamed-chunk-13-2.png)
 
-### Report the absolute and/or relative abundance of countries with low life expectancy over time by continent.
+### Report the absolute and\_or relative abundance of countries with low life expectancy over time by continent.
 
 ``` r
 # compute median life expectancy worldwide

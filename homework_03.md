@@ -14,7 +14,8 @@ September 27, 2018
         -   [How is life expectancy changing over time in different continent?](#how-is-life-expectancy-changing-over-time-in-different-continent)
         -   [How is average life expectancy changing over time in different continent?](#how-is-average-life-expectancy-changing-over-time-in-different-continent)
         -   [Report the absolute and/or relative abundance of countries with low life expectancy over time by continent.](#report-the-absolute-andor-relative-abundance-of-countries-with-low-life-expectancy-over-time-by-continent.)
-        -   [Find countreis with interesting stories](#find-countreis-with-interesting-stories)
+        -   [I want to do more!](#i-want-to-do-more)
+        -   [Placing a table and a figure side-by-side.](#placing-a-table-and-a-figure-side-by-side.)
 
 **Homework 03: USe dplyr/ggplot2 to manipulate and explore data**
 =================================================================
@@ -613,10 +614,12 @@ LwLifExp  %>%
 
 ![](homework_03_files/figure-markdown_github/unnamed-chunk-14-2.png)
 
-### Find countreis with interesting stories
+### I want to do more!
+
+### Placing a table and a figure side-by-side.
 
 ``` r
-suppressPackageStartupMessages(library(gridExtra))
+suppressPackageStartupMessages(library(gridExtra)) # loads the gridExtra library
 ```
 
 ``` r
@@ -649,8 +652,14 @@ MinMAxPlot <- MinMax %>%   # loads the MinMax data
               labs(y ="GDP Per Capital")     # labels y-axis
 
 
-Table2 <- tableGrob(MinMax, theme=ttheme_minimal(),rows=NULL)
-grid.arrange(MinMAxPlot, Table2,nrow=1)
+Table2 <- tableGrob(MinMax, theme=ttheme_minimal(),rows=NULL)  # Creates a gtable
+grid.arrange(Table2,MinMAxPlot, nrow=1)   # puts the table and the plot side-by-side
 ```
 
 ![](homework_03_files/figure-markdown_github/unnamed-chunk-16-1.png)
+
+``` r
+grid.arrange(Table2,MinMAxPlot, nrow=2)  # puts the table above the plot
+```
+
+![](homework_03_files/figure-markdown_github/unnamed-chunk-17-1.png)

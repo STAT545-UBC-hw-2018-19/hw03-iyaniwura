@@ -8,7 +8,6 @@ September 27, 2018
         -   [Displaying the gapminder data using **knitr::kable()** function](#displaying-the-gapminder-data-using-knitrkable-function)
     -   [Task menu](#task-menu)
         -   [Get the minimum and maximum of GDP per capital for all continents](#get-the-minimum-and-maximum-of-gdp-per-capital-for-all-continents)
-        -   [Verifying result using another method](#verifying-result-using-another-method)
         -   [Look at the spread of GDP per capita within the coninents](#look-at-the-spread-of-gdp-per-capita-within-the-coninents)
         -   [Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population.](#compute-a-trimmed-mean-of-life-expectancy-for-different-years.-or-a-weighted-mean-weighting-by-population.)
         -   [How is life expectancy changing over time in different continent?](#how-is-life-expectancy-changing-over-time-in-different-continent)
@@ -79,7 +78,7 @@ MinMax %>% # loads the MinMax data
 | Europe    |       973.5332|       49357.19|
 | Oceania   |     10039.5956|       34435.37|
 
-### Verifying result using another method
+-   **Verifying result using another method**
 
 Let us verify that our result is correct using another method. Let us filter the data for Africa only and then find the minimum and maximum of the GDP per capital.
 

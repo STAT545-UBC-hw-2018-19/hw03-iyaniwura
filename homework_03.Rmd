@@ -167,7 +167,7 @@ This graph shows a summary of the 'distribution' of GDP per capital for each con
 ### Compute a trimmed mean of life expectancy for different years.
 
 
-**Trimmed Mean**
+  **Trimmed Mean**
 
 ```{r}
 # Tmean: Trimmed mean
@@ -190,12 +190,12 @@ Tmean %>%
 
 ```
 
-**Observations:**
+  **Observations:**
 
 We notice from this plot that the trimmed mean of life expectancy is less than the regular mean for 1952, 1957, and 1962. In the year 1967, the two means are very close to each other, the difference of the means is 0.0383. From 1972 onward, the trimmed mean is greater than the regular mean.
 
 
- **Weighted Mean, Life Expectancy weighted by population**
+  **Weighted Mean, Life Expectancy weighted by population**
 
 
 ```{r}
@@ -218,7 +218,7 @@ W_mean %>%  # loads pipes W_mean into the next line
 ```
 
 
-**Observations:**
+  **Observations:**
 
 In 1952 the mean life expectancy weighted over the population is almost the same as the regular mean, although, the regular mean is higher. In the following year (1957), this changes and the regular mean becomes lower. In 1962, the trend also changes such that the regular mean is higher that the weighted mean. This relationship continues until 1967, where the regular mean is lower than the weighted mean. This trend continues for the remaining years.
 
@@ -301,7 +301,7 @@ LvsY %>%
 We notice from the result here that the mean life expectancy increases for most of the continents over time except for Africa that has a decrease in mean life expentancy in  year 1997 and 2002. In addition, we observe that the mean life expectancy in Europe increases over time but the rate at with it increase is slowly down. At the end of year 2007, Oceania still has the highest mean life expectancy while Africa has the lowest.
 
 
-### Report the abundance of countries with low life expectancy over time by continent.
+### Report the abundance of countries with low life expectancy over time by continent
 
 ```{r}
 # compute median life expectancy worldwide

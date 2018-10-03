@@ -11,7 +11,7 @@ September 27, 2018
         -   [Look at the spread of GDP per capita within the coninents](#look-at-the-spread-of-gdp-per-capita-within-the-coninents)
         -   [Compute a trimmed mean of life expectancy for different years.](#compute-a-trimmed-mean-of-life-expectancy-for-different-years.)
         -   [How is life expectancy changing over time in different continent?](#how-is-life-expectancy-changing-over-time-in-different-continent)
-        -   [Report the abundance of countries with low life expectancy over time by continent.](#report-the-abundance-of-countries-with-low-life-expectancy-over-time-by-continent.)
+        -   [Report the abundance of countries with low life expectancy over time by continent](#report-the-abundance-of-countries-with-low-life-expectancy-over-time-by-continent)
         -   [I want to do more!](#i-want-to-do-more)
 
 **Homework 03: USe dplyr/ggplot2 to manipulate and explore data**
@@ -539,7 +539,7 @@ LvsY %>%
 
 We notice from the result here that the mean life expectancy increases for most of the continents over time except for Africa that has a decrease in mean life expentancy in year 1997 and 2002. In addition, we observe that the mean life expectancy in Europe increases over time but the rate at with it increase is slowly down. At the end of year 2007, Oceania still has the highest mean life expectancy while Africa has the lowest.
 
-### Report the abundance of countries with low life expectancy over time by continent.
+### Report the abundance of countries with low life expectancy over time by continent
 
 ``` r
 # compute median life expectancy worldwide

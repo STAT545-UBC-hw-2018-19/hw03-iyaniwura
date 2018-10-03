@@ -1,0 +1,359 @@
+---
+title: "Homework 3"
+author: "Sarafa Iyaniwura"
+date: "September 27, 2018"
+output:
+  github_document:
+    toc: yes
+
+---
+
+# **Homework 03: USe dplyr/ggplot2 to manipulate and explore data**
+
+## Loading data and libraries
+
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(gapminder))
+```
+
+
+### Displaying the gapminder data using **knitr::kable()** function
+
+To begin, let us display the first few row of the gapminder data using the **kable()** function in order to have a feel of how it displays tables.
+
+```{r}
+gapminder %>%  # loads the gapminder data and pipes it into the next line
+  head() %>%  # gets the first few rows of the gapminder data and pipes it into the next line
+  knitr::kable(caption = "Head")  # displays the result of the head() function using the kable function
+```
+
+Wow!! the table looks great!! This function shall be used to display all the tables in this assignment. In cases, where the tables are too long, we shall display only a few rows.
+
+
+##  Task menu
+
+###    Get the minimum and maximum of GDP per capital for all continents
+```{r}
+# compute the minimum and maximum GDP per capital for each continent and save the result as MinMax ( Minimum and Maximum )
+MinMax <- gapminder %>%  # loads the gapminder data and pipe it  into the next line
+  group_by(continent) %>%  # groups data according to continents
+  summarize(Min.GdpPerCap = min(gdpPercap),Max.GdpPerCap= max(gdpPercap)) # computes the min. and max. of GDP per capital for each continent
+
+# displaying  the result using table
+MinMax %>% # loads the MinMax data
+  knitr::kable() # display the result of the previous line nicely function
+
+```
+
+### Verifying result using another method
+
+Let us verify that our result is correct using another method. Let us filter the data for Africa only and then find the minimum and maximum of the GDP per capital.
+
+```{r}
+gapminder %>%  # loads gapminder data and pipe to the next line
+  filter(continent=='Africa') %>%  # extract the data for African countries only
+  summarize(MIN.GdpPerCap=min(gdpPercap),MAX.GdpPerCap=max(gdpPercap)) %>% # finds the max and min GDP per cap. for each continent
+  knitr::kable() # display the result of the previous line nicely function
+```
+
+This is exactly the same as what we got from the first code. Let us check for another continent, say Europe.
+
+```{r}
+gapminder %>%  # loads gapminder data and pipe to the next line
+  filter(continent=='Europe') %>%   # extract the data for African countries only
+  summarize(MIN.GdpPerCap=min(gdpPercap),MAX.GdpPerCap=max(gdpPercap)) %>% # finds the max and min GDP per cap. for each continent
+  knitr::kable() # display the result of the previous line nicely function
+```
+
+The result is also the same with what we got from the first code. Based on these two tests, we can conclude that our first code for the minimum and maximum of GDP per capital for each contient is correct.
+
+
+Now, let us plot our result using **ggplot()** function.
+
+```{r}
+# plotting the result using scatter plot
+MinMax %>%   # loads the MinMax data
+  ggplot(aes(continent,color= Data)) +  # specifies the x,y variables to be plotted
+  geom_point(aes(y=Min.GdpPerCap, col="Minimum")) +  # specifies the type of plot
+  geom_point(aes(y=Max.GdpPerCap, col="Maximum")) + # specifies the type of plot
+  scale_y_log10() +             # rescales the y variable to log scale
+  ggtitle("Min. and Max. GDP per capital for each continent") +  # adds a title
+  labs(y ="GDP Per Capital")     # labels y-axis
+
+```
+
+**Observations:**
+
+We observe from this plot that Africa has the lowest minimum GDP per capital and Oceania has the largest minimum. In addition, Asia has the highest maximum, while Africa has the lowest maximum. In fact, one can easily see from this result the minimum GDP per capital in Oceania is close to the maximum GDP per capital in Africa. We can also see from this plot that Asia has the largest range of GDP per capital (max - min).
+
+
+
+### Look at the spread of GDP per capita within the coninents
+
+```{r}
+spreadGDP <- gapminder %>%  # loads gapminder data and pipes it  into the next line
+  group_by(continent) %>%  # groups data continent by continent
+  summarize(Mean=mean(gdpPercap),Variance = var(gdpPercap),Std_dev=sd(gdpPercap),
+            Range=diff(range(gdpPercap)),Int_Qt_Ran=IQR(gdpPercap)) # compute the mean,variance,standard deviation, range, and interquartile range for the GDP per capital for each continent
+
+# displaying  the result using table
+spreadGDP %>% # loads spreadGDP
+  knitr::kable() # display the result of the previous line nicely function
+
+
+# plotting the result using scatter plot
+spreadGDP %>%   # ggplot(aes(year,change,group=continent, color=continent)) + 
+  ggplot(aes(continent,y = value,color= Data,group=continent)) +
+  geom_point(aes(y=Variance, col="Variance")) + 
+  geom_point(aes(y=Mean, col="Mean")) +
+   geom_point(aes(y=Range, col="Range")) +
+  geom_point(aes(y=Std_dev, col="Standard deviation")) + 
+  geom_point(aes(y=Int_Qt_Ran, col="Interquartile range")) +
+  scale_y_log10() + ggtitle("The spread of GDP per cap. for each continent") + 
+  labs(y ="GDP Per Capital")
+
+```
+
+**Observations:**
+
+Ths first observation here is to see that the GDP per capital from Asia has the largest variance,  and range. This agrees with our observation from the previous exercise. Another thing we can see from this data that the variance is high for each continent, this implies that there is high variability in the GDP per capital for each continent. For Europe and Asia, the mean and interquartile range of each of the continents is very close, while for Africa and Americas, the mean and standard deviation are close to each other. In addition, one can see from the plot that the standard deviation for Europe and Oceania is less than the interquartile range, while for the other continents, the reserve is the case.
+
+
+The spread can also be presented for several years. In this case, we shall group the data by continent and year, and then follow the same procedure as done in the code above. When plotting the data, **facet_wrap()** function is used to  plot the result for all the years together. We shall compute the spread for the years greater than 1987.
+
+```{r}
+spreadGDP <- gapminder %>%  # loads gapminder data and pipes it  into the next line
+  group_by(continent,year) %>%  # groups data continent by continent
+  filter(year > 1987) %>%  # extract data for year greater than 1987
+  summarize(Mean=mean(gdpPercap),Variance = var(gdpPercap),Std_dev=sd(gdpPercap),
+            Range=diff(range(gdpPercap)),Int_Qt_Ran=IQR(gdpPercap)) # compute the mean,variance,standard deviation, range, and interquartile range for the GDP per capital for each continent
+
+# displaying  the result using table
+spreadGDP %>% # finds the max and min GDP per cap. for each continent
+  knitr::kable() # display the result of the previous line nicely function
+
+
+# plotting the result using scatter plot
+spreadGDP %>%   # ggplot(aes(year,change,group=continent, color=continent)) + 
+  ggplot(aes(continent,y = value,color= Data,group=continent)) +
+  geom_point(aes(y=Variance, col="Variance")) + 
+  geom_point(aes(y=Mean, col="Mean")) +
+   geom_point(aes(y=Range, col="Range")) +
+  geom_point(aes(y=Std_dev, col="Standard deviation")) + 
+  geom_point(aes(y=Int_Qt_Ran, col="Interquartile range")) +
+  facet_wrap(~year) +  # plot the graph for each country separately
+  scale_y_log10() + ggtitle("The spread of GDP per cap. for each continent for different years") + 
+  labs(y ="GDP Per Capital")
+
+```
+
+We observe from this graph that the trend in the spread of GDP per capital is similar for each year. (I have given the details of the observation in the previous plot). We can also use boxplot/violin plot to show the spread of GDP per capital for each continent as shown below;
+
+```{r}
+# plotting the result using violin plot and jitter
+gapminder %>%   # loads the gapminder data
+  ggplot(aes(continent,y = gdpPercap)) + # prepare the ggplot for plotting
+  geom_violin() + # using a violin plot
+  geom_jitter(alpha=0.2) +  # adds a scatter plot on the violin plot
+  scale_y_log10() + # applies log scale in y-axis
+  ggtitle("Violin plot showing the spread of GDP per cap. for each continent") # adds title to the figure
+
+```
+
+This graph shows a summary of the 'distribution' of GDP per capital for each continent. I have also plotted the gdpPercap values on the violin plot, which shows how the actual gdp is distributed for each continent.
+
+
+### Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population.
+
+#### Trimmed Mean
+
+```{r}
+# Tmean: Trimmed mean
+Tmean <-gapminder %>%  # loads gapminder data and pipes it  into the next line
+  group_by(year) %>%  # groups data by year
+  summarize(TrimMean = mean(lifeExp, trim=0.2), Regular_Mean = mean(lifeExp)) # computes the trimmed mean and the 'regular' mean for each year
+
+# displaying  the result using table
+Tmean %>% # pipes Tmean into the next line
+  knitr::kable() # display the result of the previous line nicely function
+
+
+# plotting the result using scatter plot
+Tmean %>%    
+  ggplot(aes(year,y =value,color= variable)) + # prepare ggplot for plotting
+  geom_point(aes(y=TrimMean, col="Trimmed mean")) + geom_line(aes(y=TrimMean, col="Trimmed mean")) + # specifies the plot type, points and line, respectively
+  geom_point(aes(y=Regular_Mean, col="Regular mean")) +   geom_line(aes(y=Regular_Mean, col="Regular mean")) +  # specifies the plot type, points and line, respectively
+  ggtitle("Trimmed and 'regular' mean of life expectancy for each year ")  +  # adds title
+    labs(y ="Mean")  # adds y label
+
+```
+
+**Observations:**
+
+We notice from this plot that the trimmed mean of life expectancy is less than the regular mean for 1952, 1957, and 1962. In the year 1967, the two means are very close to each other, the difference of the means is 0.0383. From 1972 onward, the trimmed mean is greater than the regular mean.
+
+
+#### Weighted Mean: Life Expectancy weighted by population
+
+
+```{r}
+W_mean <-gapminder %>%  # loads gapminder data and pipe it into the next line
+  group_by(year) %>%  # groups data continent by year
+  summarize(WMean = weighted.mean(lifeExp,pop), Mean = mean(lifeExp)) # compute the trimmed mean and mean for each year
+
+# displaying  the result using table
+W_mean %>% # loads pipes W_mean into the next line
+  knitr::kable() # display the result of the previous line nicely function
+
+
+# plotting the result using scatter plot
+W_mean %>%  # loads pipes W_mean into the next line
+  ggplot(aes(year,y = value,color= variable)) +  # prepare ggplot for plotting
+  geom_point(aes(y=WMean, col="Weighted mean"))  +   geom_line(aes(y=WMean, col="Weighted mean")) + # specifies the plot type, points and line, respectively
+  geom_point(aes(y=Mean, col="Regular Mean")) +  geom_line(aes(y=Mean, col="Regular Mean")) + # specifies the plot type, points and line, respectively
+  ggtitle("Weighted mean and regular mean of life expectancy for each year") +  # adds title
+    labs(y ="Mean") # adds label
+```
+
+
+**Observations:**
+
+In 1952 the mean life expectancy weighted over the population is almost the same as the regular mean, although, the regular mean is higher. In the following year (1957), this changes and the regular mean becomes lower. In 1962, the trend also changes such that the regular mean is higher that the weighted mean. This relationship continues until 1967, where the regular mean is lower than the weighted mean. This trend continues for the remaining years.
+
+
+
+### How is life expectancy changing over time in different continent?
+
+Let us begin by checking how the median life expectancy changes over time for each continent.
+
+```{r}
+# LvsY: life exp. ves year
+LvsY <-gapminder %>%  # loads gapminder data and pipe to the next line
+  group_by(continent,year) %>%  # groups data continent by year and continent
+  summarize(Median = median(lifeExp)) %>%  # sums life exp. for each year in each continent
+  mutate(change = Median - lag(Median)) # creates a new column with change in total life exp. over time
+
+# displaying  the result using table
+LvsY  %>% # pipes life exp. vs year into the next line
+  knitr::kable() # display the result of the previous line nicely function
+
+
+# plotting the result for all the continents together
+LvsY %>%
+  ggplot(aes(year,change,group=continent, color=continent)) +  # prepare ggplot for plotting
+  geom_line() +   geom_point() + # specifies the plot type, points and line, respectively
+  ggtitle("Change in median life expectancy over time for each continent ")  # adds title
+
+
+# plotting the median life expectance for each contient separately
+LvsY %>%
+  ggplot(aes(year,Median,group=continent, color=continent)) + # prepare ggplot for plotting
+  geom_line() +   geom_point() + # specifies the plot type, points and line, respectively
+  ggtitle("Median life expectancy over time for each continent ") # adds title
+```
+
+### How is average life expectancy changing over time in different continent?
+
+
+```{r}
+# LvsY: life exp. ves year
+LvsY <-gapminder %>%  # loads gapminder data and pipe to the next line
+  group_by(continent,year) %>%  # groups data continent by year and continent
+  summarize(Mean = mean(lifeExp)) %>%  # sums life exp. for each year in each continent
+  mutate(change = Mean - lag(Mean)) # creates a new column with change in total life exp. over time
+
+# displaying  the result using table
+LvsY  %>% # pipes life exp. vs year into the next line
+  knitr::kable() # display the result of the previous line nicely function
+
+
+# plotting the result for all the continents together
+LvsY %>%
+  ggplot(aes(year,change,group=continent, color=continent)) +  # prepare ggplot for plotting
+  geom_line() + geom_point() + # specifies the plot type, points and line, respectively
+  ggtitle("Change in life expectancy over time for each continent ")  # adds title
+
+
+# plotting the result for each contient separately
+LvsY %>%
+  ggplot(aes(year,Mean,group=continent, color=continent)) + # prepare ggplot for plotting
+  geom_line() + geom_point() +  # specifies the plot type, points and line, respectively
+  ggtitle("Change in life expectancy over time for each continent ")  # adds title
+
+
+```
+
+
+### Report the absolute and/or relative abundance of countries with low life expectancy over time by continent.
+
+```{r}
+# compute median life expectancy worldwide
+medLifExp <- median(gapminder$lifeExp)
+  
+# LwLifExp: Low life expectancy
+LwLifExp <-  gapminder %>%
+      filter(lifeExp < medLifExp) %>% # collect data for countries with life rxp. < medLifExp
+      group_by(continent,year) %>%  # groups data continent by year and continent
+      count(continent) # count the number of country for each continent by year
+
+# displaying  the result using table
+LwLifExp  %>% # pipes life exp. vs year into the next line
+  knitr::kable() # display the result of the previous line nicely function
+
+# plotting the result for all the continents together
+LwLifExp  %>%  # prepare ggplot for plotting
+  ggplot(aes(year,n,group=continent, color=continent)) + 
+  geom_line() + geom_point() +
+  ggtitle("Number of countries with low life expectancy over time for each continent ")
+
+
+# plotting the result for each contient separately
+LwLifExp  %>%
+  ggplot(aes(year,n,group=continent, color=continent)) + 
+  geom_line() +   geom_point() +
+  ggtitle("relative abundance countries with low life expectancy over time for each continent ") +
+  facet_wrap(~continent)
+
+```
+
+
+### I want to do more!
+
+### Placing a table and a figure side-by-side.
+
+```{r}
+suppressPackageStartupMessages(library(gridExtra)) # loads the gridExtra library
+```
+
+
+```{r}
+# compute the minimum and maximum GDP per capital for each continent and save the result as MinMax ( Minimum and Maximum )
+MinMax <- gapminder %>%  # loads the gapminder data and pipe it  into the next line
+  group_by(continent) %>%  # groups data according to continents
+  summarize(Min.GdpPerCap = min(gdpPercap),Max.GdpPerCap= max(gdpPercap)) # computes the min. and max. of GDP per capital for each continent
+
+# displaying  the result using table
+MinMax %>% # loads the MinMax data
+        knitr::kable() # display the result of the previous line nicely function
+
+# plotting the result using scatter plot
+MinMAxPlot <- MinMax %>%   # loads the MinMax data
+              ggplot(aes(continent,color= Data)) +  # specifies the x,y variables to be plotted
+              geom_point(aes(y=Min.GdpPerCap, col="Minimum")) +  # specifies the type of plot
+              geom_point(aes(y=Max.GdpPerCap, col="Maximum")) + # specifies the type of plot
+              scale_y_log10() +             # rescales the y variable to log scale
+              ggtitle("Min. and Max. GDP per capital for each continent") +  # adds a title
+              labs(y ="GDP Per Capital")     # labels y-axis
+
+
+Table2 <- tableGrob(MinMax, theme=ttheme_minimal(),rows=NULL)  # Creates a gtable
+grid.arrange(Table2,MinMAxPlot, nrow=1)   # puts the table and the plot side-by-side
+```
+
+
+
+```{r}
+grid.arrange(Table2,MinMAxPlot, nrow=2)  # puts the table above the plot
+```
+

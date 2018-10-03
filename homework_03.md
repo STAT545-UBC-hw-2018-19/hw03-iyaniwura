@@ -238,7 +238,7 @@ This graph shows a summary of the 'distribution' of GDP per capital for each con
 
 ### Compute a trimmed mean of life expectancy for different years.
 
-    *  **Trimmed Mean**
+**Trimmed Mean**
 
 ``` r
 # Tmean: Trimmed mean
@@ -282,7 +282,7 @@ Tmean %>%
 
 We notice from this plot that the trimmed mean of life expectancy is less than the regular mean for 1952, 1957, and 1962. In the year 1967, the two means are very close to each other, the difference of the means is 0.0383. From 1972 onward, the trimmed mean is greater than the regular mean.
 
-**Weighted Mean: Life Expectancy weighted by population**
+**Weighted Mean, Life Expectancy weighted by population**
 
 ``` r
 W_mean <-gapminder %>%  # loads gapminder data and pipe it into the next line
@@ -623,7 +623,7 @@ LwLifExp  %>%
 
 ### I want to do more!
 
--   **Placing a table and a figure side-by-side.**
+**Placing a table and a figure side-by-side.**
 
 ``` r
 suppressPackageStartupMessages(library(gridExtra)) # loads the gridExtra library

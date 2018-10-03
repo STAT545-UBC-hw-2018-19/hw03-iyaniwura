@@ -238,7 +238,7 @@ This graph shows a summary of the 'distribution' of GDP per capital for each con
 
 ### Compute a trimmed mean of life expectancy for different years.
 
--   **Trimmed Mean**
+    *  **Trimmed Mean**
 
 ``` r
 # Tmean: Trimmed mean
@@ -282,7 +282,7 @@ Tmean %>%
 
 We notice from this plot that the trimmed mean of life expectancy is less than the regular mean for 1952, 1957, and 1962. In the year 1967, the two means are very close to each other, the difference of the means is 0.0383. From 1972 onward, the trimmed mean is greater than the regular mean.
 
--   **Weighted Mean: Life Expectancy weighted by population**
+**Weighted Mean: Life Expectancy weighted by population**
 
 ``` r
 W_mean <-gapminder %>%  # loads gapminder data and pipe it into the next line
@@ -434,7 +434,7 @@ LvsY %>%
 
 We observe from the results in the table and the plots that the median life expectancy for all the continents is increasing over time except for Africa that has a decreaase in the year 2002. Also, we can see from the plot that the median life expectancy for most of the continent is increasing linearly over time. It is interesting to also see that the difference in the median life expectancy for Americas and Asia is higher in 1952 compare to 2007, 12 years after. In the year 2007, the two countries have almost identical median life expectancy. The reason for this is that the median life expectancy in Asian has increased more than that of the Americas within these years.
 
--   **How is average life expectancy changing over time in different continent?**
+**How is average life expectancy changing over time in different continent?**
 
 ``` r
 # LvsY: life exp. ves year

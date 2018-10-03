@@ -1,4 +1,4 @@
-# Homework 2: Use dplyr/ggplot2 to manipulate and explore data
+# Homework 3: Use dplyr/ggplot2 to manipulate and explore data
 
 In this homework, we explore the use of data wrangling library **dplyr()** and data visualization library **ggplot()** to manipulate and the gapminder data. 
 

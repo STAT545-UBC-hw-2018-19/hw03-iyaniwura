@@ -11,7 +11,7 @@ September 27, 2018
         -   [Look at the spread of GDP per capita within the coninents](#look-at-the-spread-of-gdp-per-capita-within-the-coninents)
         -   [Compute a trimmed mean of life expectancy for different years.](#compute-a-trimmed-mean-of-life-expectancy-for-different-years.)
         -   [How is life expectancy changing over time in different continent?](#how-is-life-expectancy-changing-over-time-in-different-continent)
-        -   [Report the absolute and\_or relative abundance of countries with low life expectancy over time by continent.](#report-the-absolute-and_or-relative-abundance-of-countries-with-low-life-expectancy-over-time-by-continent.)
+        -   [Report the abundance of countries with low life expectancy over time by continent.](#report-the-abundance-of-countries-with-low-life-expectancy-over-time-by-continent.)
         -   [I want to do more!](#i-want-to-do-more)
 
 **Homework 03: USe dplyr/ggplot2 to manipulate and explore data**
@@ -327,7 +327,7 @@ In 1952 the mean life expectancy weighted over the population is almost the same
 
 ### How is life expectancy changing over time in different continent?
 
--   **How is median life expectancy changing over time in different continent?**
+**How is median life expectancy changing over time in different continent?**
 
 Let us begin by checking how the median life expectancy changes over time for each continent.
 
@@ -430,6 +430,10 @@ LvsY %>%
 
 ![](homework_03_files/figure-markdown_github/unnamed-chunk-12-2.png)
 
+**Observation:**
+
+We observe from the results in the table and the plots that the median life expectancy for all the continents is increasing over time except for Africa that has a decreaase in the year 2002. Also, we can see from the plot that the median life expectancy for most of the continent is increasing linearly over time. It is interesting to also see that the difference in the median life expectancy for Americas and Asia is higher in 1952 compare to 2007, 12 years after. In the year 2007, the two countries have almost identical median life expectancy. The reason for this is that the median life expectancy in Asian has increased more than that of the Americas within these years.
+
 -   **How is average life expectancy changing over time in different continent?**
 
 ``` r
@@ -512,7 +516,7 @@ LvsY  %>% # pipes life exp. vs year into the next line
 LvsY %>%
   ggplot(aes(year,change,group=continent, color=continent)) +  # prepare ggplot for plotting
   geom_line() + geom_point() + # specifies the plot type, points and line, respectively
-  ggtitle("Change in life expectancy over time for each continent ")  # adds title
+  ggtitle("Change in mean life expectancy over time for each continent ")  # adds title
 ```
 
     ## Warning: Removed 5 rows containing missing values (geom_path).
@@ -526,12 +530,16 @@ LvsY %>%
 LvsY %>%
   ggplot(aes(year,Mean,group=continent, color=continent)) + # prepare ggplot for plotting
   geom_line() + geom_point() +  # specifies the plot type, points and line, respectively
-  ggtitle("Change in life expectancy over time for each continent ")  # adds title
+  ggtitle("Mean life expectancy over time for each continent ")  # adds title
 ```
 
 ![](homework_03_files/figure-markdown_github/unnamed-chunk-13-2.png)
 
-### Report the absolute and\_or relative abundance of countries with low life expectancy over time by continent.
+**Observation:**
+
+We notice from the result here that the mean life expectancy increases for most of the continents over time except for Africa that has a decrease in mean life expentancy in year 1997 and 2002. In addition, we observe that the mean life expectancy in Europe increases over time but the rate at with it increase is slowly down. At the end of year 2007, Oceania still has the highest mean life expectancy while Africa has the lowest.
+
+### Report the abundance of countries with low life expectancy over time by continent.
 
 ``` r
 # compute median life expectancy worldwide
@@ -595,8 +603,8 @@ LwLifExp  %>% # pipes life exp. vs year into the next line
 ``` r
 # plotting the result for all the continents together
 LwLifExp  %>%  # prepare ggplot for plotting
-  ggplot(aes(year,n,group=continent, color=continent)) + 
-  geom_line() + geom_point() +
+  ggplot(aes(year,n,group=continent, color=continent)) + # specifies the x,y variables to be plotted
+  geom_line() + geom_point() +  # specifies the plot type, points and line, respectively
   ggtitle("Number of countries with low life expectancy over time for each continent ")
 ```
 
@@ -605,8 +613,8 @@ LwLifExp  %>%  # prepare ggplot for plotting
 ``` r
 # plotting the result for each contient separately
 LwLifExp  %>%
-  ggplot(aes(year,n,group=continent, color=continent)) + 
-  geom_line() +   geom_point() +
+  ggplot(aes(year,n,group=continent, color=continent)) +  # specifies the x,y variables to be plotted
+  geom_line() +   geom_point() +  # specifies the plot type, points and line, respectively
   ggtitle("relative abundance countries with low life expectancy over time for each continent ") +
   facet_wrap(~continent)
 ```

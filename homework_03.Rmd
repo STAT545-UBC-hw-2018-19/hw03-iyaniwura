@@ -46,7 +46,7 @@ MinMax %>% # loads the MinMax data
 
 ```
 
-### Verifying result using another method
+* **Verifying result using another method**
 
 Let us verify that our result is correct using another method. Let us filter the data for Africa only and then find the minimum and maximum of the GDP per capital.
 
@@ -164,9 +164,11 @@ gapminder %>%   # loads the gapminder data
 This graph shows a summary of the 'distribution' of GDP per capital for each continent. I have also plotted the gdpPercap values on the violin plot, which shows how the actual gdp is distributed for each continent.
 
 
-### Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population.
+### Compute a trimmed mean of life expectancy for different years.
 
-* **Trimmed Mean**
+
+
+*  **Trimmed Mean**
 
 ```{r}
 # Tmean: Trimmed mean
@@ -225,7 +227,8 @@ In 1952 the mean life expectancy weighted over the population is almost the same
 
 ### How is life expectancy changing over time in different continent?
 
-* **How is median life expectancy changing over time in different continent?**
+
+ **How is median life expectancy changing over time in different continent?**
 
 Let us begin by checking how the median life expectancy changes over time for each continent.
 
@@ -255,6 +258,14 @@ LvsY %>%
   ggtitle("Median life expectancy over time for each continent ") # adds title
 ```
 
+
+
+**Observation:**
+
+We observe from the results in the table and the plots that the median life expectancy for all the continents is  increasing over time  except for Africa that has a decreaase in the year 2002. Also, we can see from the plot that the median life expectancy for most of the continent is increasing linearly over time. It is interesting to also see that the difference in the median life expectancy for Americas and Asia is higher in 1952 compare to 2007, 12 years after. In the year 2007, the two countries have almost identical median life expectancy. The reason for this is that the median life expectancy in Asian has increased more than that of the Americas within these years.
+
+
+
  * **How is average life expectancy changing over time in different continent?**
 
 
@@ -274,20 +285,24 @@ LvsY  %>% # pipes life exp. vs year into the next line
 LvsY %>%
   ggplot(aes(year,change,group=continent, color=continent)) +  # prepare ggplot for plotting
   geom_line() + geom_point() + # specifies the plot type, points and line, respectively
-  ggtitle("Change in life expectancy over time for each continent ")  # adds title
+  ggtitle("Change in mean life expectancy over time for each continent ")  # adds title
 
 
 # plotting the result for each contient separately
 LvsY %>%
   ggplot(aes(year,Mean,group=continent, color=continent)) + # prepare ggplot for plotting
   geom_line() + geom_point() +  # specifies the plot type, points and line, respectively
-  ggtitle("Change in life expectancy over time for each continent ")  # adds title
+  ggtitle("Mean life expectancy over time for each continent ")  # adds title
 
 
 ```
 
+**Observation:**
 
-### Report the absolute and/or relative abundance of countries with low life expectancy over time by continent.
+We notice from the result here that the mean life expectancy increases for most of the continents over time except for Africa that has a decrease in mean life expentancy in  year 1997 and 2002. In addition, we observe that the mean life expectancy in Europe increases over time but the rate at with it increase is slowly down. At the end of year 2007, Oceania still has the highest mean life expectancy while Africa has the lowest.
+
+
+### Report the abundance of countries with low life expectancy over time by continent.
 
 ```{r}
 # compute median life expectancy worldwide
@@ -305,15 +320,15 @@ LwLifExp  %>% # pipes life exp. vs year into the next line
 
 # plotting the result for all the continents together
 LwLifExp  %>%  # prepare ggplot for plotting
-  ggplot(aes(year,n,group=continent, color=continent)) + 
-  geom_line() + geom_point() +
+  ggplot(aes(year,n,group=continent, color=continent)) + # specifies the x,y variables to be plotted
+  geom_line() + geom_point() +  # specifies the plot type, points and line, respectively
   ggtitle("Number of countries with low life expectancy over time for each continent ")
 
 
 # plotting the result for each contient separately
 LwLifExp  %>%
-  ggplot(aes(year,n,group=continent, color=continent)) + 
-  geom_line() +   geom_point() +
+  ggplot(aes(year,n,group=continent, color=continent)) +  # specifies the x,y variables to be plotted
+  geom_line() +   geom_point() +  # specifies the plot type, points and line, respectively
   ggtitle("relative abundance countries with low life expectancy over time for each continent ") +
   facet_wrap(~continent)
 
@@ -350,7 +365,7 @@ MinMAxPlot <- MinMax %>%   # loads the MinMax data
 
 
 Table2 <- tableGrob(MinMax, theme=ttheme_minimal(),rows=NULL)  # Creates a gtable
-grid.arrange(Table2,MinMAxPlot, nrow=1)   # puts the table and the plot side-by-side
+grid.arrange(MinMAxPlot,Table2, nrow=1)   # puts the table and the plot side-by-side
 ```
 
 
